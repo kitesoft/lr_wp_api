@@ -1,0 +1,1 @@
+enum LRStorageType { Local, Session }
