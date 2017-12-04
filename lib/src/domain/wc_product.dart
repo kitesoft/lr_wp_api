@@ -93,27 +93,27 @@ class WCProduct extends JsonObject {
     weight = target['weight'];
 
     tags = [];
-    if (target.containsKey('tags')) tags = target['tags'].map((x) => new WPTag()..fromJson(x)).toList();
+    if (target.containsKey('tags')) tags = target['tags'].map((x) => new WPTag()..fromMap(x)).toList();
 
     images = [];
-    if (target.containsKey('images')) images = target['images'].map((x) => new WPImage()..fromJson(x)).toList();
+    if (target.containsKey('images')) images = target['images'].map((x) => new WPImage()..fromMap(x)).toList();
 
     _image = null;
     if (target.containsKey('image')) {
-      _image = new WPImage()..fromJson(target['image']);
+      _image = new WPImage()..fromMap(target['image']);
     }
     categories = [];
-    if (target.containsKey('categories')) categories = target['categories'].map((x) => new WPCategory()..fromJson(x)).toList();
+    if (target.containsKey('categories')) categories = target['categories'].map((x) => new WPCategory()..fromMap(x)).toList();
 
     attributes = [];
-    if (target.containsKey('attributes')) attributes = target['attributes'].map((x) => new WCAttribute()..fromJson(x)).toList();
+    if (target.containsKey('attributes')) attributes = target['attributes'].map((x) => new WCAttribute()..fromMap(x)).toList();
 
     variations = [];
     if (target.containsKey('variations')) variations = target['variations'].toList();
 
     if (target.containsKey('related_ids')) related_ids = target['related_ids'].toList();
 
-    dimensions = new WCDimensions()..fromJson(target['dimensions']);
+    dimensions = new WCDimensions()..fromMap(target['dimensions']);
   }
 
   @override
