@@ -113,7 +113,12 @@ class WCProduct extends JsonObject {
 
     if (target.containsKey('related_ids')) related_ids = target['related_ids'].toList();
 
-    dimensions = new WCDimensions()..fromMap(target['dimensions']);
+    if(target.containsKey('dimensions')){
+      dimensions = new WCDimensions()..fromMap(target['dimensions']);
+    } else{
+      dimensions = null;
+    }
+
   }
 
   @override
