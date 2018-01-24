@@ -8,3 +8,4 @@ export 'src/domain/wp_attribute.dart';
 export 'src/domain/wc_dimension.dart';
 export 'src/domain/wp_post.dart';
 export 'src/domain/wp_rendered.dart';
+export 'src/domain/wc_order_create.dart';
