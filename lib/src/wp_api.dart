@@ -2,6 +2,8 @@ import 'api_param.dart';
 import 'dart:async';
 import 'dart:html';
 
+import 'package:lr_storage/lr_storage.dart';
+
 class WCApi
 {
     static final String protocol = 'https://';
@@ -56,6 +58,11 @@ class WCApi
         }
         s += fullConsumer;
         return (await HttpRequest.getString(s));
+    }
+
+    Future<HttpRequest> postWC(String path, JsonObject data) async {
+        var s = fullWCHost + path;
+        return (await HttpRequest.postFormData(s, data.toMap()));
     }
 }
 
