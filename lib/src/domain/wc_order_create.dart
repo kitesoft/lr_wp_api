@@ -5,7 +5,7 @@ class WCOrderCreate extends JsonObject{
   String payment_method = 'basic';
   String payment_method_title = '';
   
-  bool set_paid = false;
+  String set_paid = 'false';
   WCOrderUserData billing;
   WCOrderUserData shipping;
 
