@@ -1,5 +1,6 @@
 import 'api_param.dart';
 import 'dart:async';
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:lr_storage/lr_storage.dart';
@@ -61,8 +62,11 @@ class WCApi
     }
 
     Future<HttpRequest> postWC(String path, JsonObject data) async {
-        var s = fullWCHost + path;
-        return (await HttpRequest.postFormData(s, data.toMap()));
+
+        return await HttpRequest.request(fullWCHost + path, method: 'POST', sendData: JSON.encode(data));
+
+        // var s = fullWCHost + path;
+        // return (await HttpRequest.postFormData(s, data.toMap()));
     }
 }
 
