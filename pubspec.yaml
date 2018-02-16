@@ -6,4 +6,5 @@ homepage: https://github.com/laboratory-rat/dart.storage
 environment: 
     sdk: ">=1.8.0 <2.0.0"
 dependencies:
-     lr_storage: "^1.1.25"
+    lr_storage: "^1.1.25"
+    http: "^0.11.3+16"

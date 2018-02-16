@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:lr_storage/lr_storage.dart';
+import 'package:http/http.dart' as http;
+
 
 class WCApi
 {
@@ -61,9 +63,9 @@ class WCApi
         return (await HttpRequest.getString(s));
     }
 
-    Future<HttpRequest> postWC(String path, JsonObject data) async {
+    Future<http.Response> postWC(String path, JsonObject data) async {
 
-        return await HttpRequest.postFormData(fullWCHost + path, data.toMap());
+        return await http.post(fullWCHost + path, body: data.toMap());
 
         // var s = fullWCHost + path;
         // return (await HttpRequest.postFormData(s, data.toMap()));
