@@ -63,12 +63,12 @@ class WCApi
         return (await HttpRequest.getString(s));
     }
 
-    Future<http.Response> postWC(String path, JsonObject data) async {
+    Future<HttpRequest> postWC(String path, JsonObject data) async {
 
-        return await http.post(fullWCHost + path, body: data.toMap());
+        // return await http.post(fullWCHost + path, body: data.toMap());
 
-        // var s = fullWCHost + path;
-        // return (await HttpRequest.postFormData(s, data.toMap()));
+        var s = fullWCHost + path + '?' + fullConsumer;
+        return (await HttpRequest.postFormData(s, data.toMap()));
     }
 }
 
