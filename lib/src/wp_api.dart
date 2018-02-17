@@ -68,7 +68,7 @@ class WCApi
         // return await http.post(fullWCHost + path, body: data.toMap());
 
         var s = fullWCHost + path + '?' + fullConsumer;
-        return (await HttpRequest.postFormData(s, data.toMap()));
+        return (HttpRequest.request(s, method: 'POST', sendData: data.toMap()));
     }
 }
 
