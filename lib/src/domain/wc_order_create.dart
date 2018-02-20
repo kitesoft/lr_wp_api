@@ -2,7 +2,7 @@ import 'package:lr_storage/lr_storage.dart';
 
 class WCOrderCreate extends JsonObject{
 
-  String payment_method = 'basic';
+  String payment_method = 'cash';
   String payment_method_title = '';
   
   String set_paid = 'false';
@@ -10,7 +10,7 @@ class WCOrderCreate extends JsonObject{
   WCOrderUserData shipping;
 
   List<WCOrderProductData> line_items;
-  WCOrderShippingLines shipping_lines;
+  List<WCOrderShippingLines> shipping_lines;
 
   @override
   void fromMap(Map target) {
@@ -42,7 +42,12 @@ class WCOrderCreate extends JsonObject{
     }
 
     if(shipping_lines != null){
-      target['shipping_lines'] = shipping_lines.toMap();
+      var l = [];
+      shipping_lines.forEach((x) {
+        l.add(x.toMap());
+      });
+
+      target['shipping_lines'] = l;
     }
     
 
@@ -97,9 +102,9 @@ class WCOrderUserData extends JsonObject{
 }
 
 class WCOrderProductData extends JsonObject{
-  int product_id;
-  int variation_id;
-  int quantity;
+  String product_id;
+  String variation_id;
+  String quantity;
 
   
   @override
@@ -125,7 +130,7 @@ class WCOrderProductData extends JsonObject{
 class WCOrderShippingLines extends JsonObject{
   String method_id;
   String method_title;
-  int total;
+  String total;
 
   @override
   void fromMap(Map target) {

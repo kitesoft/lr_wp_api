@@ -6,69 +6,63 @@ import 'dart:html';
 import 'package:lr_storage/lr_storage.dart';
 import 'package:http/http.dart' as http;
 
+class WCApi {
+  static final String protocol = 'https://';
+  static final String wpJson = 'wp-json/';
+  static final String wc = 'wc/';
+  static final String wp = 'wp/';
+  static String version = 'v2/';
+  static String host = '';
 
-class WCApi
-{
-    static final String protocol = 'https://';
-    static final String wpJson = 'wp-json/';
-    static final String wc = 'wc/';
-    static final String wp = 'wp/';
-    static String version = 'v2/';
-    static String host = '';  
+  static String consumerKey = '';
+  static String consumerSecret = '';
 
-    static String consumerKey = '';
-    static String consumerSecret = '';
+  static String get fullWCHost => "$protocol$host/$wpJson$wc$version";
+  static String get fullConsumer =>
+      'consumer_key=$consumerKey&consumer_secret=$consumerSecret';
+  static String get fullHost => "$protocol$host/$wpJson$wp$version";
 
-    static String get fullWCHost => "$protocol$host/$wpJson$wc$version"; 
-    static String get fullConsumer => 'consumer_key=$consumerKey&consumer_secret=$consumerSecret';
-    static String get fullHost => "$protocol$host/$wpJson$wp$version";
+  static void Configure(String baseHost,
+      [String key, String secret, String ver]) {
+    host = baseHost;
 
-    static void Configure(String baseHost, [String key, String secret, String ver])
-    {
-        host = baseHost;
+    if (key != null) consumerKey = key;
 
-        if(key != null)
-            consumerKey = key;
-        
-        if(secret != null)
-            consumerSecret = secret;
+    if (secret != null) consumerSecret = secret;
 
-        if(ver != null)
-            version = ver;
+    if (ver != null) version = ver;
+  }
+
+  Future<String> get(String path, [List<ApiParam> params]) async {
+    var s = fullHost + path;
+
+    if (params != null) {
+      s += '?';
+      params.forEach((p) {
+        s += p.param + '=' + p.value;
+        if (p != params.last) s += '&';
+      });
     }
 
-    Future<String> get(String path, [List<ApiParam> params]) async{
-        var s = fullHost + path;
+    return (await HttpRequest.getString(s));
+  }
 
-        if(params != null)
-        {
-            s += '?';
-            params.forEach((p){
-                s += p.param + '=' + p.value;
-                if(p != params.last) s += '&'; 
-            });
-        }
-
-        return (await HttpRequest.getString(s));
+  Future<String> getWC(String path, [List<ApiParam> params]) async {
+    var s = fullWCHost + path + '?';
+    if (params != null) {
+      params.forEach((p) {
+        s += p.param + '=' + p.value + '&';
+      });
     }
+    s += fullConsumer;
+    return (await HttpRequest.getString(s));
+  }
 
-    Future<String> getWC(String path, [List<ApiParam> params]) async{
-        var s = fullWCHost + path + '?';
-        if(params != null){
-            params.forEach((p){
-                s += p.param + '=' + p.value + '&';
-            });
-        }
-        s += fullConsumer;
-        return (await HttpRequest.getString(s));
-    }
-
-    Future<HttpRequest> postWC(String path, JsonObject data) async {
-
-        // return await http.post(fullWCHost + path, body: data.toMap());
-
-        var s = fullWCHost + path + '?' + fullConsumer;
-        return (HttpRequest.request(s, method: 'POST', sendData: data.toMap()));
-    }
+  Future<HttpRequest> postWC(String path, JsonObject data) async {
+    var s = fullWCHost + path + '?' + fullConsumer;
+    return (HttpRequest.request(s,
+        method: 'POST',
+        sendData: data.toMap(),
+        requestHeaders: {'Content-Type': 'application/json;charset=utf-8'}));
+  }
 }
-
