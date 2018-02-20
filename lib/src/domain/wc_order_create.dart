@@ -103,7 +103,7 @@ class WCOrderUserData extends JsonObject{
 
 class WCOrderProductData extends JsonObject{
   String product_id;
-  String variation_id;
+  int variation_id;
   int quantity;
 
   
