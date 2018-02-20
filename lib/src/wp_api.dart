@@ -62,7 +62,7 @@ class WCApi {
     var s = fullWCHost + path + '?' + fullConsumer;
     return (HttpRequest.request(s,
         method: 'POST',
-        sendData: data.toMap(),
+        sendData: JSON.encode(data.toMap()),
         requestHeaders: {'Content-Type': 'application/json;charset=utf-8'}));
   }
 }
